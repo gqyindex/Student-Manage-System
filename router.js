@@ -20,12 +20,12 @@ router.get('/',function (req,res) {
     });*/
     comment.show(function (err,data) {
         if (err){
-            return res.status(500).send('数据读取失败');
+            return res.status(500).send('数据学生读取失败');
         }
         res.render('./index.html',{
-            students:JSON.parse(data).students
-        });
-    });
+           students:JSON.parse(data).students
+        })
+    })
 });
 
 
@@ -34,9 +34,16 @@ router.get('/new.html',function (req,res) {
 });
 
 router.post('/new.html',function (req,res) {
+    comment.add(req.body,function (err) {
+        if (err){
+            return res.status(500).send('数据学生读取失败');
+        }
+        res.redirect('./');
+    });
     console.log(req.body);
 })
 
 
 //导出router
 module.exports = router;
+
