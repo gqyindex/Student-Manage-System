@@ -20,14 +20,13 @@ router.get('/',function (req,res) {
     });*/
     comment.show(function (err,data) {
         if (err){
-            return res.status(500).send('数据学生读取失败');
+            return res.status(500).send('学生读取数据失败');
         }
         res.render('./index.html',{
            students:JSON.parse(data).students
         })
     })
 });
-
 
 router.get('/new.html',function (req,res) {
     res.render('./new.html');
@@ -36,14 +35,42 @@ router.get('/new.html',function (req,res) {
 router.post('/new.html',function (req,res) {
     comment.add(req.body,function (err) {
         if (err){
-            return res.status(500).send('数据学生读取失败');
+            return res.status(500).send('添加学生数据失败');
         }
         res.redirect('./');
     });
-    console.log(req.body);
-})
+});
 
+router.get('/update.html',function (req,res) {
+   comment.find(req.query.id,function (err,student) {
+       if (err){
+           return res.status(500).send('读取学生信息失败');
+       }
+       res.render('./update.html', {
+           student: student
+       })
+   })
+});
+
+router.post('/update.html', function (req, res) {
+   comment.update(req.body, function (err) {
+        if (err) {
+            return res.status(500).send('Server error.')
+        }
+        res.redirect('/')
+    })
+});
+
+router.get('/delete.html',function (req,res) {
+    comment.delete(req.query.id,function (err,student) {
+        if (err){
+            return res.status(500).send("删除学生信息失败");
+        }
+        res.redirect('/');
+    })
+})
 
 //导出router
 module.exports = router;
+
 

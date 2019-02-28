@@ -37,6 +37,7 @@
                         <th>年龄</th>
                         <th>性别</th>
                         <th>专业</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,6 +49,10 @@
                         <td>{{$value.age}}</td>
                         <td>{{$value.gender}}</td>
                         <td>{{$value.major}}</td>
+                        <td>
+                            <a href="./update.html?id={{$value.id}}">编辑</a>
+                            <a href="./delete.html?id={{$value.id}}">删除</a>
+                        </td>
                     </tr>
                     {{/each}}
 
